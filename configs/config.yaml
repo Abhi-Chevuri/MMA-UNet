@@ -1,0 +1,58 @@
+# =============================================================================
+# MMA-UNet — Brain Tumor Segmentation (FigShare dataset)
+# Central configuration file. Edit values here rather than in code.
+# Override any field from the CLI, e.g.:
+#   python scripts/train.py --config configs/config.yaml --set BATCH_SIZE=32
+# =============================================================================
+
+paths:
+  DATA_DIR: "data/figshare/dataset/data"        # root dir containing the .mat slices
+  OUTPUT_DIR: "outputs"                          # everything below is written under here
+  SAVE_PATH: "outputs/checkpoints/mma_unet_best.pth"
+  PLOT_PATH: "outputs/plots/training_history.png"
+  VIZ_PATH: "outputs/plots/predictions.png"
+  SPLIT_PATH: "outputs/splits/dataset_split_indices.json"
+  FIXED_IDX_PATH: "outputs/splits/fixed_test_indices.json"
+  GRADCAM_PATH: "outputs/plots/gradcam.png"
+  FAILURE_CASES_PATH: "outputs/plots/failure_cases.png"
+  PREDICT_OUT_DIR: "outputs/predictions"
+
+data:
+  IMG_SIZE: 256
+  TRAIN_FRAC: 0.80        # 80% train
+  VAL_FRAC: 0.10          # 10% validation (early-stopping only)
+  # remaining 10% -> held-out test set (final reported metrics)
+  NUM_WORKERS: 2
+  BATCH_SIZE: 16
+
+train:
+  NUM_EPOCHS: 100
+  PATIENCE: 10
+  LR: 1e-4
+  ENC_LR: 1e-5
+  WEIGHT_DECAY: 1e-4
+  DEFORM_LR: 1e-5          # 10x slower than main decoder blocks
+  DEFORM_WD: 1e-3          # 10x stronger L2 than rest of network
+  DEFORM_DROP: 0.1         # Dropout2d probability in offset/mask prediction
+  GRAD_CLIP: 1.0
+  AMP: true
+  WARMUP_EPOCHS: 5
+  SEED: 42
+
+model:
+  ALPHA_INIT: 0.7           # initial encoder/Mamba fusion weight
+
+loss:
+  TVERSKY_A: 0.3
+  TVERSKY_B: 0.7
+  LAMBDA_AUX1: 0.4          # weight of 64x64 aux head
+  LAMBDA_AUX2: 0.2          # weight of 128x128 aux head
+  LAMBDA_BD: 0.3            # weight of boundary loss
+
+eval:
+  IOU_THRESHOLD: 0.5        # failure-case cutoff
+  N_FAILURE_SHOW: 12
+
+predict:
+  THRESHOLD: 0.5
+  SAVE_OVERLAY: true

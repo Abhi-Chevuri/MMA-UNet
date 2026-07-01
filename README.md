@@ -148,6 +148,21 @@ python scripts/predict.py
 | Recall | 0.9092 |
 | Specificity | 0.9982 |
 
+## Results
+
+<img src="docs/Qualitative.png" width="900">
+
+---
+
+## GradCAM
+
+<img src="docs/GradCAM.png" width="900">
+
+---
+
+## Failure Analysis
+
+<img src="docs/Failure_cases.png" width="900">
 ---
 
 # Repository Contents

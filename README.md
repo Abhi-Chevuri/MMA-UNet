@@ -68,7 +68,6 @@ MMAUNet
 ├── docs/
 ├── losses/
 ├── models/
-├── outputs/
 ├── pretrained/
 ├── scripts/
 ├── utils/
@@ -174,7 +173,6 @@ python scripts/predict.py
 | docs | Figures used in README |
 | losses | Loss functions |
 | models | MMAUNet implementation |
-| outputs | Generated predictions, GradCAM and Failure cases |
 | pretrained | Loaded checkpoint of best model |
 | scripts | Train, test and inference scripts |
 | utils | Metrics, visualization and utilities |

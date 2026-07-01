@@ -1,484 +1,221 @@
-# \# MMA-UNet: A Hybrid MedNeXt-Mamba-CBAM U-Net for Brain Tumor Segmentation
+# Integrating State Space Models and Attention Mechanisms for Brain Tumor Segmentation in MRI
 
-# 
+<p align="center">
 
-# !\[Python](https://img.shields.io/badge/Python-3.10-blue.svg)
+<img src="https://img.shields.io/badge/Python-3.10-blue.svg">
+<img src="https://img.shields.io/badge/PyTorch-2.x-ee4c2c.svg">
+<img src="https://img.shields.io/badge/License-MIT-green.svg">
 
-# !\[PyTorch](https://img.shields.io/badge/PyTorch-2.x-red.svg)
+</p>
 
-# !\[License](https://img.shields.io/badge/License-MIT-green.svg)
+Official PyTorch implementation accompanying our Springer Nature manuscript:
 
-# 
+> **Integrating State Space Models and Attention Mechanisms for Brain Tumor Segmentation in MRI**
 
-# Official PyTorch implementation of our Springer Nature manuscript:
+---
 
-# 
+## Overview
 
-# > \*\*MMA-UNet for Brain Tumor Segmentation in Magnetic Resonance Imaging\*\*
+MMAUNet is a hybrid encoder-decoder architecture designed for automatic brain tumor segmentation from contrast-enhanced MRI.
 
-# 
+The proposed architecture integrates
 
-# \---
+- EfficientNet-B5 Encoder
+- MedNeXt Bridge Blocks
+- Mamba State Space Bottleneck
+- CBAM Decoder
+- Deformable Refinement
 
-# 
+to capture both local spatial information and long-range contextual dependencies.
 
-# \# Overview
+---
 
-# 
+# Architecture
 
-# Brain tumor segmentation is a critical step in computer-aided diagnosis and treatment planning. This repository presents \*\*MMA-UNet\*\*, a hybrid encoder-decoder architecture that combines:
+<p align="center">
 
-# 
+<img src="docs/Architecture.png" width="900">
 
-# \- EfficientNet-B5 encoder
+</p>
 
-# \- MedNeXt bridge blocks
+---
 
-# \- Mamba (State Space Model) bottleneck
+# Key Features
 
-# \- CBAM attention decoder
+✅ Hybrid CNN + State Space architecture
 
-# \- Deformable refinement module
+✅ MedNeXt bridge for feature refinement
 
-# 
+✅ Mamba bottleneck for long-range modeling
 
-# The proposed architecture is designed to capture both local spatial information and long-range contextual dependencies while preserving fine boundary information for accurate tumor segmentation.
+✅ CBAM attention decoder
 
-# 
+✅ Deformable boundary refinement
 
-# \---
+✅ GradCAM visualization
 
-# 
+✅ Failure case analysis
 
-# \# Architecture
+---
 
-# 
+# Repository Structure
 
-# The proposed MMA-UNet consists of five major components:
+```text
+MMAUNet
+│
+├── configs/
+├── datasets/
+├── docs/
+├── losses/
+├── models/
+├── outputs/
+├── pretrained/
+├── scripts/
+├── utils/
+│
+├── README.md
+├── requirements.txt
+└── LICENSE
+```
 
-# 
+---
 
-# ```
+# Installation
 
-# Input MRI
+Clone repository
 
-# &#x20;     │
+```bash
+git clone https://github.com/Abhi-Chevuri/MMA-UNet.git
 
-# &#x20;     ▼
+cd MMA-UNet
+```
 
-# EfficientNet-B5 Encoder
+Install dependencies
 
-# &#x20;     │
+```bash
+pip install -r requirements.txt
+```
 
-# &#x20;     ▼
+---
 
-# MedNeXt Bridge
+# Dataset
 
-# &#x20;     │
+Experiments were performed using the public FigShare Brain Tumor MRI dataset.
 
-# &#x20;     ▼
+Please organize the dataset as
 
-# Mamba Bottleneck
+```text
+dataset/
 
-# &#x20;     │
+├── images/
 
-# &#x20;     ▼
+└── masks/
+```
 
-# CBAM Decoder
+---
 
-# &#x20;     │
+# Training
 
-# &#x20;     ▼
+```bash
+python scripts/train.py
+```
 
-# Deformable Refinement
+---
 
-# &#x20;     │
+# Testing
 
-# &#x20;     ▼
+```bash
+python scripts/test.py
+```
 
-# Segmentation Mask
+---
 
-# ```
+# Prediction
 
-# 
+```bash
+python scripts/predict.py
+```
 
-# 
+---
 
-# \---
+# Results
 
-# 
+| Metric | Score |
+|---------|------:|
+| Dice | 0.9063 |
+| IoU | 0.8304 |
+| Precision | 0.9043 |
+| Recall | 0.9092 |
+| Specificity | 0.9982 |
 
-# \# Repository Structure
+## Results
 
-# 
+<img src="docs/Qualitative.png" width="900">
 
-# ```
+---
 
-# MMA-UNet/
+## GradCAM
 
-# │
+<img src="docs/GradCAM.png" width="900">
 
-# ├── datasets/
+---
 
-# │   └── dataset.py
+## Failure Analysis
 
-# │
+<img src="docs/Failure_cases.png" width="900">
+---
 
-# ├── models/
+# Repository Contents
 
-# │   ├── mma\_unet.py
+| Folder | Description |
+|----------|------------|
+| configs | Configuration files |
+| datasets | Dataset loader |
+| docs | Figures used in README |
+| losses | Loss functions |
+| models | MMAUNet implementation |
+| outputs | Generated predictions, GradCAM and Failure cases |
+| pretrained | Loaded checkpoint of best model |
+| scripts | Train, test and inference scripts |
+| utils | Metrics, visualization and utilities |
 
-# │   ├── mednext.py
+---
 
-# │   ├── mamba.py
+# Reproducibility
 
-# │   ├── cbam.py
+All experiments reported in the manuscript use
 
-# │   ├── decoder.py
+- identical train/validation/test split
+- fixed random seed
+- identical preprocessing
+- identical evaluation protocol
 
-# │   └── deformable.py
+to ensure reproducibility.
 
-# │
+---
 
-# ├── losses/
+# Citation
 
-# │   └── losses.py
+If you find this repository useful, please cite
 
-# │
+```bibtex
+@article{MMAUNet2026,
+    title={Integrating State Space Models and Attention Mechanisms for Brain Tumor Segmentation in MRI},
+    author={},
+    journal={Springer Nature},
+    year={2026}
+}
+```
 
-# ├── utils/
+(Will be updated after publication.)
 
-# │   ├── metrics.py
+---
 
-# │   ├── visualization.py
+# License
 
-# │   ├── gradcam.py
+This project is released under the MIT License.
 
-# │   ├── config.py
+---
 
-# │   └── training\_utils.py
 
-# │
-
-# ├── configs/
-
-# │   └── config.yaml
-
-# │
-
-# ├── scripts/
-
-# │   ├── train.py
-
-# │   ├── test.py
-
-# │   └── predict.py
-
-# │
-
-# ├── requirements.txt
-
-# ├── LICENSE
-
-# └── README.md
-
-# ```
-
-# 
-
-# \---
-
-# 
-
-# \# Dataset
-
-# 
-
-# Experiments were performed on the publicly available \*\*FigShare Brain Tumor MRI Segmentation Dataset\*\*.
-
-# 
-
-# The dataset contains three tumor classes:
-
-# 
-
-# \- Meningioma
-
-# \- Glioma
-
-# \- Pituitary
-
-# 
-
-# Please download the dataset from the official source and organize it as:
-
-# 
-
-# ```
-
-# dataset/
-
-# │
-
-# ├── images/
-
-# │
-
-# └── masks/
-
-# ```
-
-# 
-
-# \---
-
-# 
-
-# \# Installation
-
-# 
-
-# Clone the repository
-
-# 
-
-# ```bash
-
-# git clone https://github.com/Abhi-Chevuri/MMA-UNet.git
-
-# 
-
-# cd MMA-UNet
-
-# ```
-
-# 
-
-# Install dependencies
-
-# 
-
-# ```bash
-
-# pip install -r requirements.txt
-
-# ```
-
-# 
-
-# \---
-
-# 
-
-# \# Training
-
-# 
-
-# Modify the parameters in
-
-# 
-
-# ```
-
-# configs/config.yaml
-
-# ```
-
-# 
-
-# Start training
-
-# 
-
-# ```bash
-
-# python scripts/train.py
-
-# ```
-
-# 
-
-# \---
-
-# 
-
-# \# Testing
-
-# 
-
-# Evaluate a trained checkpoint
-
-# 
-
-# ```bash
-
-# python scripts/test.py
-
-# ```
-
-# 
-
-# \---
-
-# 
-
-# \# Prediction
-
-# 
-
-# Segment a new MRI image
-
-# 
-
-# ```bash
-
-# python scripts/predict.py --image path/to/image.png
-
-# ```
-
-# 
-
-# \---
-
-# 
-
-# \# Results
-
-# 
-
-# Performance of the proposed MMA-UNet on the held-out test set.
-
-# 
-
-# | Metric | Value |
-
-# |----------|--------|
-
-# | Dice | 0.9063 |
-
-# | IoU | 0.8304 |
-
-# | Precision | 0.9043 |
-
-# | Recall | 0.9092 |
-
-# | Specificity | 0.9982 |
-
-# 
-
-# 
-
-# \---
-
-# 
-
-# \# Visualization
-
-# 
-
-# The repository also includes utilities for
-
-# 
-
-# \- Grad-CAM visualization
-
-# \- Qualitative segmentation comparison and Failure case analysis
-
-# \- Metric visualization
-
-# 
-
-# Example outputs include:
-
-# 
-
-# \- MRI segmentation Ground truth vs prediction
-
-# \- Grad-CAM attention maps
-
-# \- Failure case plots
-
-# 
-
-# \---
-
-# 
-
-# \# Reproducibility
-
-# 
-
-# The implementation uses
-
-# 
-
-# \- Fixed random seed
-
-# \- Identical train/validation/test split
-
-# \- PyTorch implementation
-
-# \- Held-out test evaluation
-
-# 
-
-# to ensure reproducibility of all reported experiments.
-
-# 
-
-# \---
-
-# 
-
-# \# Citation
-
-# 
-
-# If you use this work in your research, please cite:
-
-# 
-
-# ```bibtex
-
-# @article{MMAUNet2026,
-
-# &#x20; title={MMAUNet for Brain Tumor Segmentation in Magnetic Resonance Imaging},
-
-# &#x20; author={Author(s)},
-
-# &#x20; journal={Springer Nature Journal},
-
-# &#x20; year={2026}
-
-# }
-
-# ```
-
-# 
-
-# (Update this after publication.)
-
-# 
-
-# \---
-
-# 
-
-# \# License
-
-# 
-
-# This project is released under the MIT License.
-
-# 
-
-# \---
-
-# 
-
-# \# Acknowledgement
-
-# 
-
-# If you use this implementation in your work, please consider citing our paper.
-
+⭐ If you find this repository useful, consider giving it a star.
